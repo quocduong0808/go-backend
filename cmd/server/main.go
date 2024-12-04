@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"go/go-backend-api/internal/routers"
 )
 
 func main() {
-	fmt.Printf("Hello go !!!")
+	r := routers.CreateRouter()
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
