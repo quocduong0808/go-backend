@@ -2,7 +2,7 @@ package controller
 
 import (
 	"go/go-backend-api/internal/service"
-	"net/http"
+	"go/go-backend-api/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )
@@ -18,7 +18,5 @@ func NewPongController() *PongController {
 }
 
 func (pc *PongController) Pong(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": pc.pongService.Pong(),
-	})
+	response.ResponseSuccess(c, response.SuccessCode, response.MSG[response.SuccessCode], pc.pongService.Pong())
 }
