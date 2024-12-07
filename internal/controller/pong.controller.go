@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"go/go-backend-api/internal/service"
 	"go/go-backend-api/pkg/response"
 
@@ -18,5 +19,6 @@ func NewPongController() *PongController {
 }
 
 func (pc *PongController) Pong(c *gin.Context) {
+	fmt.Println("go controller")
 	response.ResponseSuccess(c, response.SuccessCode, response.MSG[response.SuccessCode], pc.pongService.Pong())
 }
