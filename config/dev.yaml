@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+databases:
+  - user: "user1"
+    pass: "pass1"
+    host: "host1"
+    dbName: "dbname1"
+    schema: "schema1"
+
+  - user: "user2"
+    pass: "pass2"
+    host: "host2"
+    dbName: "dbname2"
+    schema: "schema2"
+security:
+  jwt:
+    key: "private key"

@@ -1,0 +1,6 @@
+{"level":"INFO","time":"2024-12-07T14:57:32.763+0900","msg":"Info log","line":1}
+{"level":"ERROR","time":"2024-12-07T14:57:32.764+0900","msg":"Info error","line":2}
+{"level":"INFO","time":"2024-12-07T14:57:50.268+0900","caller":"cli/main.log.go:15","msg":"Info log","line":1}
+{"level":"ERROR","time":"2024-12-07T14:57:50.269+0900","caller":"cli/main.log.go:16","msg":"Info error","line":2}
+{"level":"INFO","time":"2024-12-07T14:58:53.250+0900","caller":"cli/main.log.go:15","msg":"Info log","line":1}
+{"level":"ERROR","time":"2024-12-07T14:58:53.251+0900","caller":"cli/main.log.go:16","msg":"Info error","line":2}
