@@ -1,3 +1,0 @@
-{"level":"INFO","time":"2024-12-15T15:16:09.578+0900","caller":"initialize/logger.go:10","msg":"init logger success"}
-{"level":"INFO","time":"2024-12-15T15:29:56.367+0900","caller":"initialize/run.go:10","msg":"Run app sucess !!!"}
-{"level":"INFO","time":"2024-12-15T15:30:55.177+0900","caller":"initialize/run.go:11","msg":"Run app sucess !!!"}
