@@ -18,11 +18,12 @@ func LoadConfig() {
 		panic(fmt.Errorf("cannot read configuration %w", err))
 	}
 
-	fmt.Println("Port: ", config.GetInt("server.port"))
+	fmt.Println("Port: ", config.GetString("logger.filename"))
 
 	//parse to config object
 	parseErr := config.Unmarshal(&global.Config)
 	if parseErr != nil {
 		panic(fmt.Errorf("error when parse config to struct %w", parseErr))
 	}
+
 }

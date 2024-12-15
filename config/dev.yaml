@@ -10,3 +10,11 @@ mysql:
   maxIdleCons: 10
   maxOpenCons: 100
   connMaxLifeTime: 3600
+
+logger:
+  level: info
+  filename: "./storages/logs/app.log"
+  maxSize: 10
+  maxBackups: 3
+  maxAge: 28
+  compress: true
