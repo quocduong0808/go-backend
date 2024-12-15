@@ -3,6 +3,7 @@ package initialize
 import (
 	"fmt"
 	"go/go-backend-api/global"
+	"go/go-backend-api/internal/po"
 	"time"
 
 	"gorm.io/driver/mysql"
@@ -19,6 +20,10 @@ func InitMysql() {
 	initMysqlPool(db)
 	global.MyDB = db
 	global.Logger.Info("create database connection successfully")
+	if config.AutoCreate {
+		migrateTable()
+		global.Logger.Info("auto migrate tables successfully")
+	}
 }
 
 func initMysqlPool(db *gorm.DB) {
@@ -33,4 +38,9 @@ func initMysqlPool(db *gorm.DB) {
 
 	// SetConnMaxLifetime sets the maximum amount of time a connection may be reused.
 	sqlDB.SetConnMaxLifetime(time.Duration(config.ConnMaxLifeTime) * time.Second)
+}
+
+func migrateTable() {
+	err := global.MyDB.AutoMigrate(&po.User{}, &po.Role{})
+	global.HandleErrorPanic(err, "error when auto migrate table")
 }

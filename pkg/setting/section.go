@@ -14,6 +14,7 @@ type MysqlSetting struct {
 	MaxIdleCons     int    `mapstructure:"maxIdleCons"`
 	MaxOpenCons     int    `mapstructure:"maxOpenCons"`
 	ConnMaxLifeTime int    `mapstructure:"connMaxLifeTime"`
+	AutoCreate      bool   `mapstructure:"autoCreate"`
 }
 
 type LoggerSetting struct {

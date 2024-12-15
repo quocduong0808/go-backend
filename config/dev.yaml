@@ -10,6 +10,7 @@ mysql:
   maxIdleCons: 10
   maxOpenCons: 100
   connMaxLifeTime: 3600
+  autoCreate: true
 
 logger:
   level: info
