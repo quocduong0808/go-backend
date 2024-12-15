@@ -6,7 +6,7 @@ mysql:
   port: 3306
   username: dev
   password: dev123
-  dbname: devdb
+  dbname: godbdev
   maxIdleCons: 10
   maxOpenCons: 100
   connMaxLifeTime: 3600
