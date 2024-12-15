@@ -1,18 +1,12 @@
 server:
   port: 8080
 
-databases:
-  - user: "user1"
-    pass: "pass1"
-    host: "host1"
-    dbName: "dbname1"
-    schema: "schema1"
-
-  - user: "user2"
-    pass: "pass2"
-    host: "host2"
-    dbName: "dbname2"
-    schema: "schema2"
-security:
-  jwt:
-    key: "private key"
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: dev
+  password: dev123
+  dbname: devdb
+  maxIdleCons: 10
+  maxOpenCons: 100
+  connMaxLifeTime: 3600
