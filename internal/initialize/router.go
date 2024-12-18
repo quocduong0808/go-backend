@@ -1,16 +1,12 @@
 package initialize
 
 import (
-	"go/go-backend-api/internal/controller"
-	"go/go-backend-api/internal/middlewares"
+	"go/go-backend-api/internal/routers"
 
 	"github.com/gin-gonic/gin"
 )
 
 func InitRouter() *gin.Engine {
-	r := gin.Default()
-	r.Use(middlewares.AuthMiddleware())
-	v1 := r.Group("/api/v1")
-	v1.GET("/ping", controller.NewPongController().Pong)
+	r := routers.CreateRouter()
 	return r
 }

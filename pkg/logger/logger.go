@@ -1,7 +1,8 @@
 package logger
 
 import (
-	"go/go-backend-api/pkg/setting"
+	"go/go-backend-api/global"
+	"go/go-backend-api/global/consts"
 	"os"
 
 	"go.uber.org/zap"
@@ -9,19 +10,30 @@ import (
 	"gopkg.in/natefinch/lumberjack.v2"
 )
 
-func NewLogger(config setting.LoggerSetting) *zap.Logger {
-	//fmt.Println("Log config info: ", config.Level, config.Filename, config.MaxSize, config.MaxBackups, config.MaxAge, config.Compress)
-	logLevel := getLogLevel(config.Level)
+func NewLogger() *zap.Logger {
+	//fmt.Println("Log logConfig info: ", logConfig.Level, logConfig.Filename, logConfig.MaxSize, logConfig.MaxBackups, logConfig.MaxAge, logConfig.Compress)
+	logConfig := global.Config.Logger
+	profile := global.Config.Server.Profile
+	logLevel := getLogLevel(logConfig.Level)
 	logFormat := getEncoderLog()
 	logSync := zapcore.AddSync(&lumberjack.Logger{
-		Filename:   config.Filename,
-		MaxSize:    config.MaxSize, // megabytes
-		MaxBackups: config.MaxBackups,
-		MaxAge:     config.MaxAge,   //days
-		Compress:   config.Compress, // disabled by default
+		Filename:   logConfig.Filename,
+		MaxSize:    logConfig.MaxSize, // megabytes
+		MaxBackups: logConfig.MaxBackups,
+		MaxAge:     logConfig.MaxAge,   //days
+		Compress:   logConfig.Compress, // disabled by default
 	})
-	logConsleSync := zapcore.AddSync(os.Stderr)
-	core := zapcore.NewCore(logFormat, zapcore.NewMultiWriteSyncer(logSync, logConsleSync), logLevel)
+	var core zapcore.Core
+	switch profile {
+	case consts.PROFILE_DEV:
+		logConsleSync := zapcore.AddSync(os.Stderr)
+		core = zapcore.NewCore(logFormat, zapcore.NewMultiWriteSyncer(logSync, logConsleSync), logLevel)
+	case consts.PROFILE_PROD:
+		core = zapcore.NewCore(logFormat, logSync, logLevel)
+	default:
+		panic("error profile when init logger")
+	}
+
 	logger := zap.New(core, zap.AddCaller())
 	return logger
 	// logger.Info("Info log", zap.Int("line", 1))
@@ -45,10 +57,10 @@ func getLogLevel(level string) zapcore.Level {
 
 // format log
 func getEncoderLog() zapcore.Encoder {
-	encodeConfig := zap.NewProductionEncoderConfig()
-	encodeConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	encodeConfig.TimeKey = "time"
-	encodeConfig.EncodeLevel = zapcore.CapitalLevelEncoder
-	encodeConfig.EncodeCaller = zapcore.ShortCallerEncoder
-	return zapcore.NewJSONEncoder(encodeConfig)
+	encodelogConfig := zap.NewProductionEncoderConfig()
+	encodelogConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	encodelogConfig.TimeKey = "time"
+	encodelogConfig.EncodeLevel = zapcore.CapitalLevelEncoder
+	encodelogConfig.EncodeCaller = zapcore.ShortCallerEncoder
+	return zapcore.NewJSONEncoder(encodelogConfig)
 }

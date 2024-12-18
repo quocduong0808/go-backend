@@ -1,5 +1,6 @@
 server:
   port: 8080
+  profile: "prod"
 
 mysql:
   host: 127.0.0.1
