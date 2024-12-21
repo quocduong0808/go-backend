@@ -12,6 +12,15 @@
             "program": "${workspaceRoot}/cmd/server/",
             "cwd": "${workspaceRoot}",
             "hideSystemGoroutines": true
+        },
+        {
+            "name": "Launch Example",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}/cmd/cli/kafkaDemo/kafka.go",
+            "cwd": "${workspaceRoot}",
+            "hideSystemGoroutines": true
         }
     ]
 }
