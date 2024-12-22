@@ -3,7 +3,7 @@ package routers
 import (
 	"go/go-backend-api/global"
 	"go/go-backend-api/global/consts"
-	"go/go-backend-api/internal/controller"
+	"go/go-backend-api/internal/wire"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -26,12 +26,12 @@ func CreateRouter() *gin.Engine {
 	//r.Use(cross)
 	//r.Use(limit)
 	rootGroup := r.Group("/api/v1")
-
 	{
+		pongController, _ := wire.InitPongHandler(0)
 		rootGroup.GET("/get-status", func(ctx *gin.Context) {
 			ctx.JSON(http.StatusOK, map[string]string{"key": "value"})
 		})
-		rootGroup.GET("/ping", controller.NewPongController().Pong)
+		rootGroup.GET("/ping", pongController.Pong)
 	}
 	{
 		AppRouter.Admin.InitAdminRouter(rootGroup)

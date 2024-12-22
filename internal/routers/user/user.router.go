@@ -1,7 +1,7 @@
 package user
 
 import (
-	"go/go-backend-api/internal/controller"
+	"go/go-backend-api/internal/wire"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,11 +11,12 @@ type UserRouter struct {
 
 func (ur *UserRouter) InitUserRouter(groupRouter *gin.RouterGroup) {
 	publicUserRouter := groupRouter.Group("/user")
+	pongController, _ := wire.InitPongHandler(0)
 	//user middleware
 	//publicUserRouter.use(limit())
 	{
-		publicUserRouter.POST("/register", controller.NewPongController().Pong)
-		publicUserRouter.POST("/otp", controller.NewPongController().Pong)
+		publicUserRouter.POST("/register", pongController.Pong)
+		publicUserRouter.POST("/otp", pongController.Pong)
 	}
 
 	privateUserRouter := groupRouter.Group("/user")
@@ -24,6 +25,6 @@ func (ur *UserRouter) InitUserRouter(groupRouter *gin.RouterGroup) {
 	//privateUserRouter.use(auth())
 	//privateUserRouter.use(privileges())
 	{
-		privateUserRouter.GET("/info", controller.NewPongController().Pong)
+		privateUserRouter.GET("/info", pongController.Pong)
 	}
 }

@@ -29,8 +29,8 @@ func (ps *pongService) Pong() string {
 	return ps.pongRepo.Pong()
 }
 
-func NewPongService() IPongService {
+func NewPongService(pongRepo repo.IPongRepo) IPongService {
 	return &pongService{
-		pongRepo: repo.NewPongRepo(),
+		pongRepo: pongRepo,
 	}
 }

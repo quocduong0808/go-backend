@@ -1,5 +1,7 @@
 package repo
 
+import "fmt"
+
 // type PongRepo struct {
 // 	//model
 // }
@@ -17,14 +19,19 @@ type IPongRepo interface {
 }
 
 type pongRepo struct {
+	id int
 	//model
 }
 
 // Pong implements IPongRepo.
 func (p *pongRepo) Pong() string {
-	return "pong-repo..."
+	fmt.Printf("pointer: %v \n", &p)
+	p.id = p.id + 1
+	return fmt.Sprintf("pong-repo-id: %v", p.id)
 }
 
-func NewPongRepo() IPongRepo {
-	return &pongRepo{}
+func NewPongRepo(id int) IPongRepo {
+	return &pongRepo{
+		id: id,
+	}
 }
