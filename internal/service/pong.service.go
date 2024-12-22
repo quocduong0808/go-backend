@@ -2,16 +2,35 @@ package service
 
 import "go/go-backend-api/internal/repo"
 
-type PongService struct {
-	pongRepo *repo.PongRepo
+// type PongService struct {
+// 	pongRepo *repo.PongRepo
+// }
+
+// func NewPongService() *PongService {
+// 	return &PongService{
+// 		pongRepo: repo.NewPongRepo(),
+// 	}
+// }
+
+// func (ps *PongService) Pong() string {
+// 	return ps.pongRepo.Pong()
+// }
+
+type IPongService interface {
+	Pong() string
 }
 
-func NewPongService() *PongService {
-	return &PongService{
+type pongService struct {
+	pongRepo repo.IPongRepo
+}
+
+// Pong implements IPongService.
+func (ps *pongService) Pong() string {
+	return ps.pongRepo.Pong()
+}
+
+func NewPongService() IPongService {
+	return &pongService{
 		pongRepo: repo.NewPongRepo(),
 	}
-}
-
-func (ps *PongService) Pong() string {
-	return ps.pongRepo.Pong()
 }

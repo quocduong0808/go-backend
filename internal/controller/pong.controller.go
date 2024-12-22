@@ -8,8 +8,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// type PongController struct {
+// 	pongService *service.PongService
+// }
+
+// func NewPongController() *PongController {
+// 	return &PongController{
+// 		pongService: service.NewPongService(),
+// 	}
+// }
+
 type PongController struct {
-	pongService *service.PongService
+	pongService service.IPongService
 }
 
 func NewPongController() *PongController {
