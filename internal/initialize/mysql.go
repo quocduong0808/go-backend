@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"gorm.io/driver/mysql"
+	"gorm.io/gen"
 	"gorm.io/gorm"
 )
 
@@ -21,8 +22,9 @@ func InitMysql() {
 	global.MyDB = db
 	global.Logger.Info("create database connection successfully")
 	if config.AutoCreate {
-		migrateTable()
-		global.Logger.Info("auto migrate tables successfully")
+		//migrateTable()
+		genModels()
+		global.Logger.Info("auto migrate tables/models successfully")
 	}
 }
 
@@ -43,4 +45,23 @@ func initMysqlPool(db *gorm.DB) {
 func migrateTable() {
 	err := global.MyDB.AutoMigrate(&po.User{}, &po.Role{})
 	global.HandleErrorPanic(err, "error when auto migrate table")
+}
+
+func genModels() {
+	g := gen.NewGenerator(gen.Config{
+		OutPath: "./internal/model",                                                 // output path
+		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface, // generate mode
+	})
+
+	// gormdb, _ := gorm.Open(mysql.Open("root:@(127.0.0.1:3306)/demo?charset=utf8mb4&parseTime=True&loc=Local"))
+	g.UseDB(global.MyDB) // reuse your gorm db
+
+	// Generate basic type-safe DAO API for struct `model.User` following conventions
+	g.GenerateAllTable()
+
+	// Generate Type Safe API with Dynamic SQL defined on Querier interface for `model.User` and `model.Company`
+	//g.ApplyInterface(func(Querier){}, model.User{}, model.Company{})
+
+	// Generate the code
+	g.Execute()
 }
