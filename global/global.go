@@ -2,6 +2,7 @@ package global
 
 import (
 	"go/go-backend-api/pkg/setting"
+	"os"
 
 	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
@@ -9,10 +10,11 @@ import (
 )
 
 var (
-	Config setting.Config
-	Logger *zap.Logger
-	MyDB   *gorm.DB
-	Redis  *redis.Client
+	Profile string = os.Getenv("PROFILE")
+	Config  setting.Config
+	Logger  *zap.Logger
+	MyDB    *gorm.DB
+	Redis   *redis.Client
 )
 
 func HandleErrorPanic(err error, msg string) {

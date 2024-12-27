@@ -10,7 +10,7 @@ import (
 func LoadConfig() {
 	config := viper.New()
 	config.AddConfigPath("./config/")
-	config.SetConfigName("dev")
+	config.SetConfigName(global.Profile)
 	config.SetConfigType("yaml")
 
 	err := config.ReadInConfig()

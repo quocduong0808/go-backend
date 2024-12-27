@@ -11,7 +11,7 @@ import (
 
 func CreateRouter() *gin.Engine {
 	var r *gin.Engine
-	switch global.Config.Server.Profile {
+	switch global.Profile {
 	case consts.PROFILE_DEV:
 		gin.SetMode(gin.DebugMode)
 		gin.ForceConsoleColor()

@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  profile: ""
+
+mysql:
+  host: mydbdev
+  port: 3306
+  username: dev
+  password: dev123
+  dbname: godbdev
+  maxIdleCons: 10
+  maxOpenCons: 100
+  connMaxLifeTime: 3600
+  autoCreate: true
+
+logger:
+  level: info
+  filename: "./storages/logs/app.log"
+  maxSize: 10
+  maxBackups: 3
+  maxAge: 28
+  compress: true
+
+redis:
+  host: redis-stack
+  port: 6379
+  password: ""
+  db: 0
+  poolSize: 10
+  maxActiveConns: 0
+  maxIdleConns: 0

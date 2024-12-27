@@ -1,0 +1,67 @@
+version: '3.9'
+
+services:
+  go-backend:
+    container_name: go-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      PROFILE: ${PROFILE}
+    ports:
+      - "8080:8080"
+    networks:
+      - go-network
+    volumes:
+      - gobackend:/storages/logs
+    depends_on:
+      mydbdev:
+          condition: service_healthy
+      redis-stack:
+          condition: service_healthy
+  mydbdev:
+    container_name: mydbdev
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: godbdev
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev123
+    ports:
+      - "3306:3306"
+    networks:
+      - go-network
+    volumes:
+      - mydbdev:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=root123
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    restart: always
+  redis-stack:
+    container_name: redis-stack
+    image: redis/redis-stack
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    networks:
+      - go-network
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 30s         # Time between checks (30 seconds)
+      timeout: 10s          # Max time to wait for a check to complete
+      retries: 3            # Number of consecutive failures for unhealthy
+      start_period: 10s     # Grace period before starting health checks
+    restart: always
+networks:
+  go-network:
+    name: go-network
+    driver: bridge
+volumes:
+  mydbdev:
+  redis:
+  gobackend:

@@ -13,7 +13,7 @@ import (
 func NewLogger() *zap.Logger {
 	//fmt.Println("Log logConfig info: ", logConfig.Level, logConfig.Filename, logConfig.MaxSize, logConfig.MaxBackups, logConfig.MaxAge, logConfig.Compress)
 	logConfig := global.Config.Logger
-	profile := global.Config.Server.Profile
+	profile := global.Profile
 	logLevel := getLogLevel(logConfig.Level)
 	logFormat := getEncoderLog()
 	logSync := zapcore.AddSync(&lumberjack.Logger{
