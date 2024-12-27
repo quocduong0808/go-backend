@@ -18,3 +18,5 @@ grant all privileges on godbdev.*  to 'dev'@'%';
 flush privileges;
 ## app
 docker run -d --name go-app --network go-network -p 8080:8080 go-app
+## start apps
+docker-compose --env-file .env_dev up -d --build
