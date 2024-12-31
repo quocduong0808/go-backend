@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8081
   profile: ""
 
 mysql:
-  host: mydbdev
+  host: 127.0.0.1
   port: 3306
   username: dev
   password: dev123
@@ -22,7 +22,7 @@ logger:
   compress: true
 
 redis:
-  host: redis-stack
+  host: 127.0.0.1
   port: 6379
   password: ""
   db: 0
