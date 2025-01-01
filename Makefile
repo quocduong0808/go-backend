@@ -1,7 +1,10 @@
 APP_NAME = .\cmd\server\main.go
 
 run:
-	set PROFILE=dev&&go run ${APP_NAME}
+	set PROFILE=local&&go run ${APP_NAME}
+
+up-local:
+	set PROFILE=local&& docker-compose up -d mydbdev redis-stack&& go run ${APP_NAME}
 
 up-dev:
 	set PROFILE=dev&& docker-compose up -d mydbdev redis-stack&& go run ${APP_NAME}

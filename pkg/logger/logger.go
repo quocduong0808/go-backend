@@ -25,7 +25,7 @@ func NewLogger() *zap.Logger {
 	})
 	var core zapcore.Core
 	switch profile {
-	case consts.PROFILE_DEV:
+	case consts.PROFILE_DEV, consts.PROFILE_LOCAL:
 		logConsleSync := zapcore.AddSync(os.Stderr)
 		core = zapcore.NewCore(logFormat, zapcore.NewMultiWriteSyncer(logSync, logConsleSync), logLevel)
 	case consts.PROFILE_PROD:

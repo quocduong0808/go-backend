@@ -1,17 +1,30 @@
 package repo
 
-import "strings"
+import (
+	"go/go-backend-api/global"
+	"go/go-backend-api/internal/model"
+
+	"go.uber.org/zap"
+)
 
 type IUserRepository interface {
-	EmailExist(email string) bool
+	EmailHasExist(email string) bool
 }
 
 type userRepository struct {
 }
 
-// EmailExist implements IUserRepository.
-func (us *userRepository) EmailExist(email string) bool {
-	return strings.HasSuffix(email, "registed")
+// EmailHasExist implements IUserRepository.
+func (us *userRepository) EmailHasExist(email string) bool {
+	rs := global.MyDB.Table(model.TableNameGoCrmUser).Where("usr_email = ?", email).Find(&model.GoCrmUser{})
+	if rs.Error != nil {
+		global.Logger.Error("EmailHasExist error", zap.Error(rs.Error))
+		return false
+	}
+	if rs.RowsAffected <= 0 {
+		return false
+	}
+	return true
 }
 
 func NewUserRepository() IUserRepository {

@@ -29,3 +29,9 @@ redis:
   poolSize: 10
   maxActiveConns: 0
   maxIdleConns: 0
+
+smtp:
+  host: smtp.gmail.com
+  port: 587
+  username: xxxxxxxxxxx@gmail.com
+  password: "xxxx xxxx xxxx xxxx"

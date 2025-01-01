@@ -12,10 +12,11 @@ type UserRouter struct {
 func (ur *UserRouter) InitUserRouter(groupRouter *gin.RouterGroup) {
 	publicUserRouter := groupRouter.Group("/user")
 	pongController, _ := wire.InitPongHandler(0)
+	userController, _ := wire.InitUserHandler()
 	//user middleware
 	//publicUserRouter.use(limit())
 	{
-		publicUserRouter.POST("/register", pongController.Pong)
+		publicUserRouter.POST("/register", userController.Register)
 		publicUserRouter.POST("/otp", pongController.Pong)
 	}
 

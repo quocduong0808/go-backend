@@ -20,3 +20,14 @@ func InitPongHandler(id int) (*controller.PongController, error) {
 	pongController := controller.NewPongController(iPongService)
 	return pongController, nil
 }
+
+// Injectors from user.wire.go:
+
+func InitUserHandler() (*controller.UserContoller, error) {
+	iUserRepository := repo.NewUserRepository()
+	iAuthRepository := repo.NewAuthRepository()
+	iMailService := service.NewMailService()
+	iUserService := service.NewUserService(iUserRepository, iAuthRepository, iMailService)
+	userContoller := controller.NewUserController(iUserService)
+	return userContoller, nil
+}

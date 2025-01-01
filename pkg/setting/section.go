@@ -5,6 +5,7 @@ type Config struct {
 	Mysql  MysqlSetting  `mapstructure:"mysql"`
 	Logger LoggerSetting `mapstructure:"logger"`
 	Redis  RedisSetting  `mapstructure:"redis"`
+	SMTP   SmtpSetting   `mapstructure:"smtp"`
 }
 
 type ServerSetting struct {
@@ -41,4 +42,11 @@ type RedisSetting struct {
 	PoolSize       int    `mapstructure:"poolSize"`
 	MaxActiveConns int    `mapstructure:"maxActiveConns"`
 	MaxIdleConns   int    `mapstructure:"maxIdleConns"`
+}
+
+type SmtpSetting struct {
+	Host     string `mapstructure:"host"`
+	Port     int    `mapstructure:"port"`
+	Username string `mapstructure:"username"`
+	Password string `mapstructure:"password"`
 }
